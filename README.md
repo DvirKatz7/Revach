@@ -28,4 +28,4 @@ Next.js 14 · Supabase · Tailwind · Claude API (invoice scanning, Phase 2)
 
 ## Contact
 
-[your email]
+dvirkatz7@gmail.com
