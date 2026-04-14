@@ -154,10 +154,21 @@ export default async function DashboardPage() {
   const targetPct = (restaurant.default_margin_target ?? 0.65) * 100
   const belowTarget = scored.filter(r => r.gross_margin_pct < targetPct).length
 
-  // Top / bottom 3
+  // Top / bottom lists — never overlap
   const sorted = [...scored].sort((a, b) => b.gross_margin_pct - a.gross_margin_pct)
-  const top3 = sorted.slice(0, 3)
-  const bottom3 = sorted.slice(-3).reverse()
+  const n = sorted.length
+
+  // How many to show in each list:
+  //   1 recipe  → show neither (handled in JSX)
+  //   2–5       → top half / bottom half, no middle overlap
+  //   6+        → top 3 / bottom 3
+  const showLists = n >= 2
+  const listSize  = n >= 6 ? 3 : Math.floor(n / 2)
+  const topList    = showLists ? sorted.slice(0, listSize) : []
+  const topIds     = new Set(topList.map(r => r.id))
+  const bottomList = showLists
+    ? sorted.slice(-listSize).reverse().filter(r => !topIds.has(r.id))
+    : []
 
   const hasRecipes = recipes.length > 0
 
@@ -213,38 +224,38 @@ export default async function DashboardPage() {
       )}
 
       {/* Top / bottom recipes */}
-      {hasRecipes && scored.length > 0 && (
+      {hasRecipes && scored.length === 1 && (
+        <div className="bg-white rounded-xl border border-gray-100 p-8 text-center">
+          <p className="text-gray-500 text-sm">
+            הוסף לפחות 2 מתכונים כדי לראות השוואת רווחיות
+          </p>
+        </div>
+      )}
+
+      {hasRecipes && showLists && (
         <div className="grid md:grid-cols-2 gap-6">
 
-          {/* Top 3 */}
+          {/* Top list */}
           <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-50">
               <h2 className="text-sm font-semibold text-gray-700">🏆 מנות רווחיות</h2>
             </div>
             <div className="p-2">
-              {top3.length > 0 ? (
-                top3.map(r => (
-                  <RecipeRow key={r.id} recipe={r} variant="green" linkable />
-                ))
-              ) : (
-                <p className="text-sm text-gray-400 text-center py-4">אין נתונים</p>
-              )}
+              {topList.map(r => (
+                <RecipeRow key={r.id} recipe={r} variant="green" linkable />
+              ))}
             </div>
           </div>
 
-          {/* Bottom 3 */}
+          {/* Bottom list */}
           <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
             <div className="px-4 py-3 border-b border-gray-50">
               <h2 className="text-sm font-semibold text-gray-700">⚠️ מנות לשיפור</h2>
             </div>
             <div className="p-2">
-              {bottom3.length > 0 ? (
-                bottom3.map(r => (
-                  <RecipeRow key={r.id} recipe={r} variant="red" linkable />
-                ))
-              ) : (
-                <p className="text-sm text-gray-400 text-center py-4">אין נתונים</p>
-              )}
+              {bottomList.map(r => (
+                <RecipeRow key={r.id} recipe={r} variant="red" linkable />
+              ))}
             </div>
           </div>
 

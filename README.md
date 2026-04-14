@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Revach · רווח
 
-## Getting Started
+Menu profitability and variance intelligence for independent restaurants.
 
-First, run the development server:
+## What it does
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Revach tells restaurant owners three things they don't know today:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Which dish is actually profitable** — live food cost % per recipe, 
+  updated automatically when supplier prices change
+- **Where ingredients are disappearing** — actual vs. theoretical usage 
+  per ingredient, flagging theft, over-portioning, and waste
+- **What to do about it** — which dishes to push, reprice, or remove
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Who it's for
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Independent restaurants and bars, 1–3 locations. Built Hebrew-first 
+for the Israeli market, with kosher mode, NIS pricing, and local 
+supplier catalog built in.
 
-## Learn More
+## Status
 
-To learn more about Next.js, take a look at the following resources:
+🚧 Building Phase 1 — recipe costing engine. First pilot restaurant onboarded.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Next.js 14 · Supabase · Tailwind · Claude API (invoice scanning, Phase 2)
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+dvirkatz7@gmail.com

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev:clean": "rmdir /s /q .next 2>nul & next dev --turbo"
+    "dev:clean": "node -e \"require('fs').rmSync('.next', {recursive:true,force:true})\" && next dev --turbo"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",
